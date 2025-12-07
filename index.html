@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你好2026，祝你...</title>
+    <!-- 预加载音频 -->
+    <link rel="preload" href="audio/1145.MP3" as="audio" type="audio/mpeg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 5rem;
+            color: #60A5FA;
+            margin-bottom: 1rem;
+            animation: fadeIn 1s ease-in-out, fadeOut 1s ease-in-out 2s forwards;
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: #a0a0a0;
+            margin-bottom: 3rem;
+            animation: fadeIn 1s ease-in-out 0.3s both, fadeOut 1s ease-in-out 2.3s forwards;
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        .wishes-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .wish-item {
+            position: absolute;
+            font-size: 1rem;
+            color: #e0e0e0;
+            opacity: 0;
+            transform: scale(0.8) translateY(10px);
+            animation: popIn 0.5s ease-out forwards;
+            cursor: pointer;
+            transition: transform 0.2s ease, color 0.2s ease, background-color 0.3s ease;
+            max-width: 160px;
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 12px;
+            background-color: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            pointer-events: auto;
+            user-select: none;
+            z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .wish-item:hover {
+            transform: scale(1.05);
+            z-index: 20;
+        }
+        
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(10px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        @keyframes fadeOut {
+            from { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+            to { 
+                opacity: 0; 
+                transform: translateY(-10px); 
+            }
+        }
+        
+        @keyframes popIn {
+            0% { 
+                opacity: 0; 
+                transform: scale(0.8) translateY(10px); 
+            }
+            50% { 
+                transform: scale(1.1) translateY(-2px); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: scale(1) translateY(0); 
+            }
+        }
+        
+        /* 不同颜色的祝福卡片 */
+        .wish-item.color-1 { color: #FCA5A5; }
+        .wish-item.color-2 { color: #FCD34D; }
+        .wish-item.color-3 { color: #6EE7B7; }
+        .wish-item.color-4 { color: #93C5FD; }
+        .wish-item.color-5 { color: #C4B5FD; }
+        .wish-item.color-6 { color: #F9A8D4; }
+        
+        .wish-item:hover.color-1 { color: #F87171; }
+        .wish-item:hover.color-2 { color: #FBBF24; }
+        .wish-item:hover.color-3 { color: #34D399; }
+        .wish-item:hover.color-4 { color: #60A5FA; }
+        .wish-item:hover.color-5 { color: #8B5CF6; }
+        .wish-item:hover.color-6 { color: #EC4899; }
+        
+        /* 标题区域居中 */
+        .header {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .wish-item {
+                font-size: 0.9rem;
+                max-width: 140px;
+            }
+        }
+        
+        /* 控制按钮 */
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 标题区域 - 居中显示 -->
+        <div class="header" id="header">
+            <h1>2026</h1>
+            <p class="subtitle">希望2026的你...</p>
+        </div>
+        
+        <!-- 愿望列表区域 - 全屏 -->
+        <div class="wishes-container" id="wishes-container">
+            <!-- 愿望项将通过JavaScript动态添加 -->
+        </div>
+    </div>
+    
+
+
+    <!-- 背景音乐元素 -->
+    <audio id="bgMusic" loop>
+        <source src="audio/1145.MP4" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // 背景音乐自动播放
+        document.addEventListener('DOMContentLoaded', function() {
+            const audio = document.getElementById('bgMusic');
+            
+            // 尝试自动播放
+            function playAudio() {
+                audio.play().then(() => {
+                    console.log('音乐开始播放');
+                }).catch(error => {
+                    console.log('自动播放失败，等待用户交互后播放:', error);
+                    // 添加用户交互监听
+                    document.addEventListener('click', function startPlay() {
+                        audio.play().then(() => {
+                            console.log('用户交互后音乐开始播放');
+                        }).catch(err => {
+                            console.log('播放失败:', err);
+                        });
+                        // 移除事件监听，避免重复触发
+                        document.removeEventListener('click', startPlay);
+                    });
+                });
+            }
+            
+            // 页面加载后尝试播放
+            playAudio();
+        });
+        
+        // 祝福文字数据
+        const wishes = [
+            "事业有成", "身体健康", "学业进步", "家庭幸福", "实现梦想", "充满自信", 
+            "收获爱情", "环游世界", "财源广进", "快乐每一天", "万事如意", "心想事成", 
+            "前程似锦", "笑口常开", "步步高升", "平安顺遂", "吉祥如意", "美梦成真", 
+            "一帆风顺", "福星高照", "龙马精神", "和气致祥", "金玉满堂", "荣华富贵", 
+            "智慧增长", "友谊长存", "爱情甜蜜", "家庭美满", "事业辉煌", "心情愉悦", 
+            "工作顺利", "学习进步", "生活美满", "前程无量", "飞黄腾达", "功成名就", 
+            "名利双收", "吉祥安康", "福寿康宁", "财源滚滚", "招财进宝", "花开富贵", 
+            "喜气洋洋", "洋洋得意", "春风满面", "心旷神怡", "心满意足", "称心如意", 
+            "天从人愿", "事随人愿", "如鱼得水", "左右逢源", "八面玲珑", "面面俱到", 
+            "出类拔萃", "名列前茅", "独占鳌头", "鹤立鸡群", "一举成名", "一飞冲天", 
+            "平步青云", "青云直上", "百尺竿头", "更进一步", "日新月异", "蒸蒸日上"
+        ];
+        
+        let wishInterval;
+        let maxWishes = 1000; // 增加最大愿望数量
+        let currentWishCount = 0;
+        // 设置为速度级别1
+        let generationSpeed = 200; 
+        let batchSize = 2;
+
+        // 使用DocumentFragment优化DOM操作
+        function createWishBatch() {
+            if (currentWishCount >= maxWishes) return;
+            
+            const container = document.getElementById('wishes-container');
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            
+            // 创建文档片段
+            const fragment = document.createDocumentFragment();
+            
+            // 批量创建愿望
+            const batchLimit = Math.min(batchSize, maxWishes - currentWishCount);
+            for (let i = 0; i < batchLimit; i++) {
+                const wishItem = document.createElement('div');
+                wishItem.classList.add('wish-item');
+                
+                // 随机颜色类
+                const colorClass = `color-${Math.floor(Math.random() * 6) + 1}`;
+                wishItem.classList.add(colorClass);
+                
+                // 随机选择祝福内容
+                const randomWish = wishes[Math.floor(Math.random() * wishes.length)];
+                wishItem.textContent = `希望2026的你${randomWish}`;
+                
+                // 随机位置 - 全屏分布
+                const maxLeft = windowWidth - 160;
+                const maxTop = windowHeight - 50;
+                const left = Math.random() * maxLeft;
+                const top = Math.random() * maxTop;
+                
+                wishItem.style.left = `${left}px`;
+                wishItem.style.top = `${top}px`;
+                
+                // 随机动画延迟，避免同时出现
+                wishItem.style.animationDelay = `${Math.random() * 0.2}s`;
+                
+                // 添加点击事件
+                wishItem.addEventListener('click', function() {
+                    this.style.opacity = '0';
+                    this.style.pointerEvents = 'none';
+                    setTimeout(() => {
+                        if (this.parentNode) {
+                            this.parentNode.removeChild(this);
+                            currentWishCount--;
+                        }
+                    }, 200);
+                });
+                
+                fragment.appendChild(wishItem);
+                currentWishCount++;
+            }
+            
+            // 一次性添加到DOM
+            container.appendChild(fragment);
+        }
+        
+        // 开始生成愿望
+        function startGeneratingWishes() {
+            // 标题显示2秒后隐藏
+            setTimeout(() => {
+                const header = document.getElementById('header');
+                header.style.opacity = '0';
+                header.style.pointerEvents = 'none';
+                
+                // 开始生成愿望
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(createWishBatch, i * 100);
+                }
+                
+                // 设置定时器持续生成
+                wishInterval = setInterval(createWishBatch, generationSpeed);
+            }, 2000);
+        }
+        
+
+        
+        // 页面加载完成后初始化
+        window.addEventListener('load', function() {
+            startGeneratingWishes();
+            
+
+        });
+        
+        // 优化窗口大小改变事件
+        let resizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(function() {
+                // 窗口大小改变时的处理逻辑
+            }, 250);
+        });
+    </script>
+</body>
+</html>
